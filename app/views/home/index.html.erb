@@ -1,0 +1,23 @@
+<form action="/home/create" method="post">
+  제목: <input type="text" name="title"><br>
+  내용: <input type="text" name="content"><br>
+  <input type="submit" value="Submit">
+</form>
+
+
+<% if user_signed_in? %>
+  <% @all_post.each do |a| %>
+    <hr>제목: <%=a.title%><br>	       
+    내용: <%=a.content%><br>
+    <form action="/home/reply" method="post">
+        댓글<br> <input type="text" name="cc"><br>
+        <input type="hidden" name="pi" value="<%=a.id%>">
+        <input type="submit" value="댓글달기">
+    </form><br>
+    <% a.replies.all.each do |r| %>
+      <%= r.content %><br>
+    <% end %>
+  <% end %><hr>
+<% end %>
+
+
